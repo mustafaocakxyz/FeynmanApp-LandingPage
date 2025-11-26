@@ -11,6 +11,22 @@ body {
     position: relative;
 }
 
+.application-page {
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
+    background: linear-gradient(to top, #ffffff 0%, #90caf9 50%, #64b5f6 100%);
+    background-attachment: fixed;
+}
+
+.application-page .container {
+    min-height: 100vh;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 3rem 2rem;
+    background: transparent;
+}
+
 .container {
     min-height: 100vh;
     display: flex;
@@ -76,7 +92,7 @@ body {
 }
 
 .hero-text {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2rem, 5vw, 3.8rem);
     font-weight: 600;
     color: #ffffff;
     margin-bottom: 0;
@@ -175,6 +191,95 @@ body {
 
 .cta-secondary:active {
     transform: translateY(0);
+}
+
+/* Application page styles */
+.application-container {
+    flex-direction: column;
+    gap: 3rem;
+    align-items: stretch;
+}
+
+.application-hero .hero-text {
+    margin-bottom: 1rem;
+}
+
+.application-subtitle {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+}
+
+.application-content {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+.application-info,
+.application-form {
+    flex: 1;
+    min-width: 280px;
+    max-width: 520px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 28px;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 20px 60px rgba(15, 76, 129, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.application-info h2 {
+    color: #0d47a1;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.application-info p {
+    color: rgba(21, 101, 192, 0.85);
+    margin-bottom: 1rem;
+}
+
+.application-info ol {
+    padding-left: 1.25rem;
+    color: rgba(8, 47, 84, 0.9);
+    line-height: 1.6;
+}
+
+.application-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.application-form label {
+    font-weight: 600;
+    color: rgba(13, 71, 161, 0.9);
+}
+
+.application-form input {
+    padding: 0.9rem 1.1rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.application-form input:focus {
+    outline: none;
+    border-color: rgba(25, 118, 210, 0.8);
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+}
+
+.form-submit {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
 }
 
 /* Responsive Design */
@@ -368,6 +473,19 @@ body {
     .phone-notch {
         width: 120px;
         height: 20px;
+    }
+    
+    .application-container {
+        gap: 2rem;
+    }
+    
+    .application-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .application-page .container {
+        padding: 2.5rem 1rem 3rem;
     }
 }
 

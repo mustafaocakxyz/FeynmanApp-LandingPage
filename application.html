@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Ekibi Başvurusu | Feynman App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="application-page">
+    <div class="container application-container">
+        <div class="hero-section application-hero">
+            <h1 class="hero-text">Test Ekibine Katıl</h1>
+            <p class="application-subtitle">Başvuru formunu doldurun ve videonuzu paylaşın.</p>
+        </div>
+
+        <div class="application-content">
+            <div class="application-info">
+                <h2>Video Talimatları</h2>
+                <p>Lütfen aşağıdaki sorulara cevap verdiğiniz bir videonuzu YouTube'a yükleyin ve linkini forma girin.</p>
+                <ol>
+                    <li>Yaşınız</li>
+                    <li>Sınıf & Eğitim Durumunuz</li>
+                    <li>Ortalama TYT & AYT Netleriniz</li>
+                    <li>Ortalama TYT & AYT Matematik Netleriniz</li>
+                    <li>Günde Kaç Saatinizi Uygulamayı Test Etmeye Ayırabilirsiniz?</li>
+                    <li>Neden Test Ekibine Katılmak İstiyorsunuz?</li>
+                    <li>Uygulamanın gelişmesi için yönlendirmelere uygun şekilde geri dönüş sağlayacağınızı onaylıyor musunuz?</li>
+                    <li>Bir test ekibi üyesi olarak sorumluluk alacağınızı ve günlük olarak sizden istenen görevleri yapacağınızı onaylıyor musunuz?</li>
+                </ol>
+            </div>
+
+            <form class="application-form">
+                <label for="name">İsim</label>
+                <input type="text" id="name" name="name" placeholder="Adınız Soyadınız" required>
+
+                <label for="phone">Telefon</label>
+                <input type="text" id="phone" name="phone" placeholder="+90..." required>
+
+                <label for="video">Video Linki</label>
+                <input type="text" id="video" name="video" placeholder="YouTube video linkiniz" required>
+
+                <button type="submit" class="cta-button cta-primary form-submit">Başvuruyu Gönder</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
