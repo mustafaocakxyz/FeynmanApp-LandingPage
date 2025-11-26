@@ -29,7 +29,7 @@
                 </ol>
             </div>
 
-            <form class="application-form">
+            <form class="application-form" id="application-form">
                 <label for="name">İsim</label>
                 <input type="text" id="name" name="name" placeholder="Adınız Soyadınız" required>
 
@@ -40,9 +40,11 @@
                 <input type="text" id="video" name="video" placeholder="YouTube video linkiniz" required>
 
                 <button type="submit" class="cta-button cta-primary form-submit">Başvuruyu Gönder</button>
+                <p class="form-status" id="form-status" aria-live="polite"></p>
             </form>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
 

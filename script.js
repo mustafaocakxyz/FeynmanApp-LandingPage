@@ -51,3 +51,35 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Google Sheets submission handler
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('application-form');
+    const statusEl = document.getElementById('form-status');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxzV3IPVzR1LJswhcbWkp6OQr1DeuMcKjgmYNimAexDBXroADgos2-z_nY6r9zcfv_WvQ/exec';
+
+    if (!form) return;
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        statusEl.textContent = 'Gönderiliyor...';
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(scriptURL, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Ağ hatası');
+            }
+
+            statusEl.textContent = 'Başvurunuz başarıyla gönderildi!';
+            form.reset();
+        } catch (error) {
+            console.error(error);
+            statusEl.textContent = 'Bir hata oluştu. Lütfen tekrar deneyin.';
+        }
+    });
+});
