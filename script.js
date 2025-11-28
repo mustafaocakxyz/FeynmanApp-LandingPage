@@ -1,3 +1,26 @@
+// Random hero text selection
+const slogans = [
+    "Duolingo'nun YKS versiyonu. Öğretici ve bağımlılık yapıyor.",
+    "YKS öğrencilerinin Instagram'dan çok kullandığı uygulama.",
+    "Zor konuları 5 dakikada kolayca öğreten uygulama.",
+    "Zor konuları kolay yoldan öğren."
+];
+
+function setRandomHeroText() {
+    const heroText = document.getElementById('hero-text');
+    if (heroText) {
+        const randomSlogan = slogans[Math.floor(Math.random() * slogans.length)];
+        heroText.textContent = randomSlogan;
+    }
+}
+
+// Set random slogan immediately (before DOMContentLoaded for no flash)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setRandomHeroText);
+} else {
+    setRandomHeroText();
+}
+
 // Smooth interactions and animations
 document.addEventListener('DOMContentLoaded', function() {
     const buttons = document.querySelectorAll('.cta-button');
@@ -53,33 +76,79 @@ document.head.appendChild(style);
 
 // Google Sheets submission handler
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('application-form');
-    const statusEl = document.getElementById('form-status');
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxzV3IPVzR1LJswhcbWkp6OQr1DeuMcKjgmYNimAexDBXroADgos2-z_nY6r9zcfv_WvQ/exec';
+    const applicationForm = document.getElementById('application-form');
+    const emailForm = document.getElementById('email-form');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz34YVrcN8kAnDu2d5aXtETM3l_1L_gNgbQZWTMXXwg4jA8w4z-MEnMss88jCxGSyah1Q/exec';
 
-    if (!form) return;
+    // Application form handler
+    if (applicationForm) {
+        const statusEl = document.getElementById('form-status');
+        
+        applicationForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            statusEl.textContent = 'Gönderiliyor...';
 
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        statusEl.textContent = 'Gönderiliyor...';
-
-        const formData = new FormData(form);
-
-        try {
-            const response = await fetch(scriptURL, {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error('Ağ hatası');
+            const formData = new FormData(applicationForm);
+            const params = new URLSearchParams();
+            for (const [key, value] of formData.entries()) {
+                params.append(key, value);
             }
 
-            statusEl.textContent = 'Başvurunuz başarıyla gönderildi!';
-            form.reset();
-        } catch (error) {
-            console.error(error);
-            statusEl.textContent = 'Bir hata oluştu. Lütfen tekrar deneyin.';
-        }
-    });
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params.toString(),
+                    redirect: 'follow'
+                });
+
+                const text = await response.text();
+                statusEl.textContent = 'Başvurunuz başarıyla gönderildi!';
+                applicationForm.reset();
+            } catch (error) {
+                console.error(error);
+                statusEl.textContent = 'Bir hata oluştu. Lütfen tekrar deneyin.';
+            }
+        });
+    }
+
+    // Email form handler
+    if (emailForm) {
+        const statusEl = document.getElementById('email-status');
+        
+        emailForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            statusEl.textContent = 'Gönderiliyor...';
+
+            const email = document.getElementById('email').value;
+            
+            // Create URL-encoded data
+            const params = new URLSearchParams();
+            params.append('type', 'email_signup');
+            params.append('email', email);
+
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params.toString(),
+                    redirect: 'follow'
+                });
+
+                // Google Apps Script may return a redirect, so check if we got any response
+                const text = await response.text();
+                
+                // If we get a response (even if redirected), consider it success
+                statusEl.textContent = 'E-posta adresiniz başarıyla eklendi!';
+                emailForm.reset();
+            } catch (error) {
+                console.error('Error details:', error);
+                statusEl.textContent = 'Bir hata oluştu. Lütfen tekrar deneyin.';
+            }
+        });
+    }
 });
